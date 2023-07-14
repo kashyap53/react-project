@@ -6,25 +6,45 @@ const Login = () => {
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [success, setSucess] = useState(false);
 
     useEffect(() => {
-        useRef.current.focus();
+        userRef.current.focus();
     }, [])
 
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(user, pwd);
+        setUser('');
+        setPwd('');
+        setSucess(true);
+    }
     return(
+            <>
+                {success ?(
+                    <section>  
+                        <h1>You are logged in!</h1>
+                        <br/>
+                        <p>
+                            <a href="#">Go to Home</a>
+                        </p>
+                    </section>
+                ) : (
+
         <section>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h2>Sign in your account</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-row">
-                     <label htmlFor="username">Username</label>
+                     <label htmlFor="email">Email</label>
                     <input 
                         type="text" 
-                        id="username" 
-                        ref={useRef} 
+                        id="email" 
+                        ref={userRef} 
                         autoComplete="off"
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
@@ -32,19 +52,25 @@ const Login = () => {
                         />
                 </div>
                 <div className="form-row">
-                    <label htmlFor="password">Email</label>
+                    <label htmlFor="password">Password</label>
                     <input 
                         type="password" 
                         id="password" 
-                        ref={useRef} 
-                        autoComplete="off"
                         onChange={(e) => setPwd(e.target.value)}
                         value={pwd}
                         required
                         />
                 </div>
+                <button>Sign In</button>
             </form>
+            <p>Need an account ? <br/>
+                <span className="line">
+                    <a href="#">Sign Up</a>
+                </span>
+            </p>
         </section>
+                )}
+                </>
     )
 } 
-export default Login;
+export default Login
