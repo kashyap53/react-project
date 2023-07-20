@@ -1,5 +1,7 @@
 import React from "react";
+import logo from './logo.png';
 import { useState, useEffect, useRef } from "react";
+
 const Login = () => {   
     const userRef = useRef();
     const errRef = useRef();
@@ -23,10 +25,11 @@ const Login = () => {
         setPwd('');
         setSucess(true);
     }
+    console.log(logo);
     return(
             <>
                 {success ?(
-                    <section>  
+                    <section>
                         <h1>You are logged in!</h1>
                         <br/>
                         <p>
@@ -35,39 +38,41 @@ const Login = () => {
                     </section>
                 ) : (
 
-        <section>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h2>Sign in your account</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-row">
-                     <label htmlFor="email">Email</label>
-                    <input 
-                        type="text" 
-                        id="email" 
-                        ref={userRef} 
-                        autoComplete="off"
-                        onChange={(e) => setUser(e.target.value)}
-                        value={user}
-                        required
-                        />
+        <section class="login-form">
+            <div className="auth-form">
+                <div class="text-center mb-3">
+                    <img src={logo} width={150} />
+                    <h4 class="text-center mb-4">Sign in your account</h4>
+                    <form action="index.html">
+                            <div className="form-row">
+                            
+                            <label htmlFor="email">Email</label>
+                            <input 
+                                type="text" 
+                                id="email" 
+                                ref={userRef} 
+                                autoComplete="off"
+                                onChange={(e) => setUser(e.target.value)}
+                                value={user}
+                                required
+                            />
+                         </div>
+                         <div className="form-row">
+                          <label htmlFor="password">Password</label>
+                          <input 
+                            type="password" 
+                            id="password" 
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            />
+                        </div>
+                        <button>Sign me In</button>
+                        <p>Don't have an account? <a href="#">Sign Up</a>
+                        </p>
+                    </form>
                 </div>
-                <div className="form-row">
-                    <label htmlFor="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
-                        required
-                        />
-                </div>
-                <button>Sign In</button>
-            </form>
-            <p>Need an account ? <br/>
-                <span className="line">
-                    <a href="#">Sign Up</a>
-                </span>
-            </p>
+            </div>
         </section>
                 )}
                 </>
